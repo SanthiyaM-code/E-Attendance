@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +41,18 @@ public class MainActivity extends AppCompatActivity {
 
         classAdapter=new ClassAdapter(this,classItems);
         recyclerView.setAdapter(classAdapter);
+        classAdapter.setOnItemClickListener(position -> gotoItemActivity(position));
 
     }
+
+    private void gotoItemActivity(int position) {
+        Intent intent=new Intent(this,StudentActivity.class);
+        intent.putExtra("className",classItems.get(position).getClassName());
+        intent.putExtra("SubjectName",classItems.get(position).getSubjectName());
+        intent.putExtra("position",position);
+        startActivity(intent);
+    }
+
     private void showDialog(){
         MyDialog dialog=new MyDialog();
         dialog.show(getSupportFragmentManager(),MyDialog.CLASS_ADD_DIALOG);
