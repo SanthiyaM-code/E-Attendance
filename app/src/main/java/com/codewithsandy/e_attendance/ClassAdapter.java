@@ -13,7 +13,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder>{
+public class
+ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder>{
 
     ArrayList<ClassItem> classItems;
     Context context;
