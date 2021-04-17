@@ -1,6 +1,9 @@
 package com.codewithsandy.e_attendance;
 
-public class ClassItem {
+public class
+
+
+ClassItem {
     public String getSubjectName() {
         return subjectName;
     }

@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        app:backgroundTint="@color/purple_200"
         android:layout_centerHorizontal="true"
         android:layout_margin="24dp"
         android:src="@drawable/ic_baseline_add_24"/>
@@ -22,7 +23,7 @@
         android:layout_below="@id/toolbarmain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycleeview"/>
+        android:id="@+id/recyclerview"/>
 
 
 

@@ -2,6 +2,7 @@ package com.codewithsandy.e_attendance;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         fab=findViewById(R.id.fab);
         fab.setOnClickListener(v-> showDialog());
 
-        recyclerView=findViewById(R.id.recycleeview);
+        recyclerView=findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         layoutManager =new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
