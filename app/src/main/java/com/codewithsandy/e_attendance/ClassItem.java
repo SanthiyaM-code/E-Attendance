@@ -12,7 +12,23 @@ ClassItem {
         this.subjectName = subjectName;
     }
 
+    public ClassItem(String className, long cid, String subjectName) {
+        this.className = className;
+        this.cid = cid;
+        this.subjectName = subjectName;
+    }
+
     private  String className;
+
+    public long getCid() {
+        return cid;
+    }
+
+    public void setCid(long cid) {
+        this.cid = cid;
+    }
+
+    private long cid;
 
     public String getClassName() {
         return className;

@@ -1,5 +1,6 @@
 package com.codewithsandy.e_attendance;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<ClassItem> classItems=new ArrayList<>();
     Toolbar toolbar;
+    DbHelper dbHelper;
     
 
     @Override
@@ -36,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dbHelper=new DbHelper(this);
+
+
+
         fab=findViewById(R.id.fab);
         fab.setOnClickListener(v-> showDialog());
+
+        loadData();
 
         recyclerView=findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -49,6 +59,22 @@ public class MainActivity extends AppCompatActivity {
         classAdapter.setOnItemClickListener(position -> gotoItemActivity(position));
        setToolbar();
 
+
+    }
+
+    private void loadData() {
+        Cursor cursor=dbHelper.getClassTable();
+
+        classItems.clear();
+        while(cursor.moveToNext())
+        {
+            int id=cursor.getInt(cursor.getColumnIndex(DbHelper.C_ID));
+            String className=cursor.getString(cursor.getColumnIndex(DbHelper.CLASS_NAME_KEY));
+            String subjectName=cursor.getString(cursor.getColumnIndex(DbHelper.SUBJECT_NAME_KEY));
+
+            classItems.add(new ClassItem(className,id,subjectName));
+
+        }
 
     }
 
@@ -81,10 +107,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addClass(String className,String subjectName) {
-
-        classItems.add(new ClassItem(className,subjectName));
+        long cid=dbHelper.addClass(className,subjectName);
+        ClassItem classItem=new ClassItem(className,cid,subjectName);
+        classItems.add(classItem);
         classAdapter.notifyDataSetChanged();
+
+
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case 0:
+                break;
+            case 1:
+                deleteClass(item.getGroupId());
+        }
+        return super.onContextItemSelected(item);
+    }
 
+    private void deleteClass(int position) {
+        dbHelper.deleteClass(classItems.get(position).getCid());
+        classItems.remove(position);
+        classAdapter.notifyItemRemoved(position);
+
+    }
 }
